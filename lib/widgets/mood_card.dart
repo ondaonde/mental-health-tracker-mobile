@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mental_health_tracker/screens/list_moodentry.dart';
 import 'package:mental_health_tracker/screens/login.dart';
 import 'package:mental_health_tracker/screens/moodentry_form.dart';
+//import 'package:mental_health_tracker/screens/moodentry_page.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -15,9 +16,9 @@ class ItemHomepage {
 class ItemCard extends StatelessWidget {
   // Menampilkan kartu dengan ikon dan nama.
 
-  final ItemHomepage item;
-
-  const ItemCard(this.item, {super.key});
+  final ItemHomepage item; 
+  
+  const ItemCard(this.item, {super.key}); 
 
   @override
   Widget build(BuildContext context) {
@@ -27,31 +28,36 @@ class ItemCard extends StatelessWidget {
       color: Theme.of(context).colorScheme.secondary,
       // Membuat sudut kartu melengkung.
       borderRadius: BorderRadius.circular(12),
-
+      
       child: InkWell(
         // Aksi ketika kartu ditekan.
         onTap: () async {
-          // Menampilkan pesan SnackBar saat kartu ditekan.
+          // Memunculkan SnackBar ketika diklik
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
-                content: Text("Kamu telah menekan tombol ${item.name}")));
+                content: Text("Kamu telah menekan tombol ${item.name}!")));
 
           // Navigate ke route yang sesuai (tergantung jenis tombol)
           if (item.name == "Tambah Mood") {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const MoodEntryFormPage()));
-          } else if (item.name == "Lihat Mood") {
+              context,
+              MaterialPageRoute(builder: (context) => MoodEntryFormPage()),
+            );
+          } 
+          // Tambahkan else if untuk tombol "Lihat Mood"
+          else if (item.name == "Lihat Mood") {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const MoodEntryPage()),
+              MaterialPageRoute(
+                builder: (context) => const MoodEntryPage(),
+              ),
             );
-          } else if (item.name == "Logout") {
+          }
+          else if (item.name == "Logout") {
               final response = await request.logout(
                   // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                  "http://localhost:8000/auth/logout/");
+                  "http://127.0.0.1:8000/auth/logout/");
               String message = response["message"];
               if (context.mounted) {
                   if (response['status']) {

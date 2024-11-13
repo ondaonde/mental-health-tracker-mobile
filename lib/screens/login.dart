@@ -1,8 +1,10 @@
 import 'package:mental_health_tracker/screens/menu.dart';
 import 'package:flutter/material.dart';
-import 'package:mental_health_tracker/screens/register.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+// TODO: Import halaman RegisterPage jika sudah dibuat
+import 'package:mental_health_tracker/screens/register.dart';
+
 
 void main() {
   runApp(const LoginApp());
@@ -99,10 +101,11 @@ class _LoginPageState extends State<LoginPage> {
                       String password = _passwordController.text;
 
                       // Cek kredensial
+                      // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
                       // Untuk menyambungkan Android emulator dengan Django pada localhost,
                       // gunakan URL http://10.0.2.2/
                       final response = await request
-                          .login("http://localhost:8000/auth/login/", {
+                          .login("http://127.0.0.1:8000/auth/login/", {
                         'username': username,
                         'password': password,
                       });
